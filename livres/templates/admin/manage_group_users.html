@@ -14,7 +14,7 @@
                 {% for user in users_in_group %}
                 <div class="result" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
                     <span>{{ user.username }} ({{ user.get_full_name|default:"Pas de nom complet" }})</span>
-                    <form method="post" action="{% url 'remove_user_from_group' group.id user.id %}" style="margin: 0;">
+                    <form method="post" action="{% url 'livres:remove_user_from_group' group.id user.id %}" style="margin: 0;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir retirer {{ user.username }} du groupe ?')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
@@ -35,7 +35,7 @@
                 {% for user in users_not_in_group %}
                 <div class="result" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
                     <span>{{ user.username }} ({{ user.get_full_name|default:"Pas de nom complet" }})</span>
-                    <form method="post" action="{% url 'add_user_to_group' group.id user.id %}" style="margin: 0;">
+                    <form method="post" action="{% url 'livres:add_user_to_group' group.id user.id %}" style="margin: 0;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -52,7 +52,7 @@
     </div>
     
     <div style="margin-top: 20px;">
-        <a href="{% url 'group_list' %}" class="btn btn-outline-secondary">Retour à la liste des groupes</a>
+        <a href="{% url 'livres:group_list' %}" class="btn btn-outline-secondary">Retour à la liste des groupes</a>
     </div>
 </div>
 

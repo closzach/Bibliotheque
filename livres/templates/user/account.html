@@ -88,10 +88,10 @@ Mon compte
                     <hr class="my-4">
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{% url 'change_password' %}" class="btn btn-outline-secondary">
+                        <a href="{% url 'livres:change_password' %}" class="btn btn-outline-secondary">
                             Changer mon mot de passe
                         </a>
-                        <a href="{% url 'modifier_account'%}" class="btn btn-outline-primary">
+                        <a href="{% url 'livres:modifier_account'%}" class="btn btn-outline-primary">
                             Modifier mes informations
                         </a>
                         <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
@@ -124,7 +124,7 @@ Mon compte
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Annuler
                 </button>
-                <form method="POST" action="{% url 'supprimer_account' %}">
+                <form method="POST" action="{% url 'livres:supprimer_account' %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
                 </form>

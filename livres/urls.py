@@ -1,10 +1,11 @@
 from django.urls import path
 from .views import *
+from django.contrib.auth import views as auth_views
 
 app_name = 'livres'
 
 urlpatterns = [
-    path('rechercher/', lister_livres, name='rechercher'),
+    path('', lister_livres, name='rechercher'),
     path('livre/creer/', creer_livre, name='creer_livre'),
     path('livre/<int:id>/', detail_livre, name='detail_livre'),
     path('livre/<int:id>/modifier/', modifier_livre, name='modifier_livre'),
@@ -27,4 +28,16 @@ urlpatterns = [
     path('wishlist/<int:id>/ajouter/', ajouter_souhait, name="ajouter_souhait"),
     path('wishlist/<int:id>/retirer/', retirer_souhait, name="retirer_souhait"),
     path('wishlist/', liste_de_souhaits, name='liste_de_souhaits'),
+    path('signup/', signup, name='signup'),
+    path('login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('account/', account, name='account'),
+    path('account/edit/', modifier_utilisateur, name='modifier_account'),
+    path('account/change_password/', change_password, name='change_password'),
+    path('account/delete/', supprimer_account, name='supprimer_account'),
+    path('groups/', group_list, name='group_list'),
+    path('manage-group-users/<int:group_id>/', manage_group_users, name='manage_group_users'),
+    path('add-user-to-group/<int:group_id>/<int:user_id>/', add_user_to_group, name='add_user_to_group'),
+    path('remove-user-from-group/<int:group_id>/<int:user_id>/', remove_user_from_group, name='remove_user_from_group'),
+    path('ajax-toggle-user-group/<int:group_id>/<int:user_id>/', ajax_toggle_user_group, name='ajax_toggle_user_group'),
 ]
