@@ -1,5 +1,5 @@
 """
-URL configuration for Mediatheque project.
+URL configuration for Bibliotheque project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -19,10 +19,8 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,20 +41,7 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('livres/', include('livres.urls', 'livres')),
-    path('', hub, name='hub'),
-    path('login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('signup/', signup, name='signup'),
-    path('account/', account, name='account'),
-    path('account/edit/', modifier_utilisateur, name='modifier_account'),
-    path('account/change_password/', change_password, name='change_password'),
-    path('account/delete/', supprimer_account, name='supprimer_account'),
-    path('groups/', group_list, name='group_list'),
-    path('manage-group-users/<int:group_id>/', manage_group_users, name='manage_group_users'),
-    path('add-user-to-group/<int:group_id>/<int:user_id>/', add_user_to_group, name='add_user_to_group'),
-    path('remove-user-from-group/<int:group_id>/<int:user_id>/', remove_user_from_group, name='remove_user_from_group'),
-    path('ajax-toggle-user-group/<int:group_id>/<int:user_id>/', ajax_toggle_user_group, name='ajax_toggle_user_group'),
+    path('', include('livres.urls', 'livres')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

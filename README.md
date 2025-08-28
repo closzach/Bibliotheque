@@ -1,11 +1,11 @@
-# Médiathèque
-Site en Django voué à la gestion de sa médiathèque.
+# Bibliothèque
+Site en Django voué à la gestion de sa bibliothèque.
 
 ## Installation et lancement [LINUX]
 
 Cloner le dépôt :
 ```sh
-git clone https://github.com/closzach/Mediatheque.git
+git clone https://github.com/closzach/Bibliotheque.git
 ```
 
 Créer un environnement Python 3.12 et le lancer(facultatif) :
