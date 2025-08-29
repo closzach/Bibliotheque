@@ -3,6 +3,13 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from api.models import Livre, Auteur, Tag, Lecture, User
 
 class UserForm(UserCreationForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control'
+        }),
+        label="Adresse électronique",
+        required=True
+    )
     date_naissance = forms.DateField(
         widget=forms.DateInput(attrs={
             'type': 'date',
@@ -29,7 +36,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'date_naissance', 'password1', 'password2']
+        fields = ['username', 'email', 'date_naissance', 'password1', 'password2']
 
         widgets = {
             'username': forms.TextInput(attrs={
@@ -45,6 +52,13 @@ class UserForm(UserCreationForm):
             self.initial['date_naissance'] = self.instance.date_naissance.strftime('%Y-%m-%d')
 
 class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control'
+        }),
+        label="Adresse électronique",
+        required=True
+    )
     date_naissance = forms.DateField(
         widget=forms.DateInput(attrs={
             'type': 'date',
@@ -63,7 +77,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'date_naissance', 'cacher_pour_adulte']
+        fields = ['username', 'email', 'date_naissance', 'cacher_pour_adulte']
 
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
