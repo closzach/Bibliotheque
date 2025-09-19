@@ -311,3 +311,15 @@ class MarquePagesForm(forms.ModelForm):
                 }
             )
         }
+
+class StatutLectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['statut']
+        widgets = {
+            'statut': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            )
+        }

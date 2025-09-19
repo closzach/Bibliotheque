@@ -44,6 +44,81 @@
                 </div>
             </div>
 
+            <hr>
+            {% if lecture %}
+            <div class="mb-3">
+                <form method="POST" action="{% url 'livres:modifier_statut_lecture' lecture.id %}" class="d-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <strong>Statut de lecture :</strong>
+                    <div style="width: 100px;">
+                        {{ statut_lecture_form.statut }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
+                </form>
+            </div>
+            {% if lecture.marque_pages and lecture.statut == "en pause" %}
+            <p>
+                <strong>Marque-pages :</strong>
+                <span class="badge bg-secondary">{{ lecture.marque_pages }}</span>
+            </p>
+            {% endif %}
+            {% if lecture.statut != "lu" and lecture.statut != "a lire" and pages_restantes %}
+            <div class="mb-3">
+                <strong>Pages restantes :</strong>
+                <span>{{ pages_restantes }}</span>
+            </div>
+            {% endif %}
+            {% if lecture.statut == "en cours" %}
+            <div class="mb-3">
+                <form method="POST" action="{% url 'livres:modifier_marque_pages' lecture.id %}" class="d-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <strong>Marque-pages :</strong>
+                    <div style="width: 100px;">
+                        {{ marque_pages_form.marque_pages }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
+                </form>
+            </div>
+            {% endif %}
+            {% if lecture.date_debut %}
+            <p>
+                <strong>Date de début de lecture :</strong> {{ lecture.date_debut|date:"d/m/Y" }}
+            </p>
+            {% endif %}
+            {% if lecture.date_fin %}
+            <p>
+                <strong>Date de fin de lecture :</strong> {{ lecture.date_fin|date:"d/m/Y" }}
+            </p>
+            {% endif %}
+            <hr>
+            <p><strong>Note :</strong></p>
+            {% if lecture.note %}
+            <div>
+                {% for i in lecture_range %}
+                {% if i <= lecture.note %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+                {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                </svg>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted">Vous n'avez pas encore noté ce livre.</p>
+            {% endif %}
+            <hr>
+            <p><strong>Commentaire :</strong></p>
+            {% if lecture.commentaire %}
+            <p>{{ lecture.commentaire }}</p>
+            {% else %}
+            <p class="text-muted">Vous n'avez pas encore commenté.</p>
+            {% endif %}
+            <hr>
+            {% endif %}
+
             <p><strong>Date de sortie :</strong> {{ livre.date_sortie|date:"d/m/Y" }}</p>
             <p><strong>Nombre de pages :</strong> {{ livre.nombre_pages }}</p>
             {% if livre.edition %}

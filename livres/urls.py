@@ -25,6 +25,7 @@ urlpatterns = [
     path('lecture/<int:id>/', detail_lecture, name='detail_lecture'),
     path('lecture/<int:id>/modifier/', modifier_lecture, name='modifier_lecture'),
     path('lecture/<int:id>/modifier_mp/', modifier_marque_pages, name='modifier_marque_pages'),
+    path('lecture/<int:id>/modifier_statut', modifier_statut_lecture, name='modifier_statut_lecture'),
     path('wishlist/<int:id>/ajouter/', ajouter_souhait, name="ajouter_souhait"),
     path('wishlist/<int:id>/retirer/', retirer_souhait, name="retirer_souhait"),
     path('wishlist/', liste_de_souhaits, name='liste_de_souhaits'),
