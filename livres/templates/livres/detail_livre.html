@@ -159,9 +159,6 @@
                 {% if bouton_ajouter %}
                 <a href="{% url 'livres:ajouter_livre' livre.id %}" class="btn btn-outline-primary">Ajouter à la collection</a>
                 {% endif %}
-                {% if lecture %}
-                <a href="{% url 'livres:detail_lecture' lecture.id %}" class="btn btn-outline-primary">Consulter dans la bibliothèque</a>
-                {% endif %}
                 <a href="{% url 'livres:rechercher' %}" class="btn btn-outline-secondary">Retour à la liste</a>
 
                 {% if souhait %}
