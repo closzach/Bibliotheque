@@ -22,7 +22,6 @@ urlpatterns = [
     path('bibliotheque/', bibliotheque, name='bibliotheque'),
     path('livre/<int:id>/ajouter/', ajouter_livre, name='ajouter_livre'),
     path('lecture/<int:id>/supprimer/', supprimer_lecture, name='supprimer_lecture'),
-    path('lecture/<int:id>/', detail_lecture, name='detail_lecture'),
     path('lecture/<int:id>/modifier/', modifier_lecture, name='modifier_lecture'),
     path('lecture/<int:id>/modifier_mp/', modifier_marque_pages, name='modifier_marque_pages'),
     path('lecture/<int:id>/modifier_statut', modifier_statut_lecture, name='modifier_statut_lecture'),
