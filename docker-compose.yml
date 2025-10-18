@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: >
+      bash -c "python manage.py collectstatic --no-input && gunicorn Bibliotheque.wsgi --bind 0.0.0.0:8000"
+    volumes:
+      - ./static_volume:/app/staticfiles
+      - ./media_volume:/app/media
+    expose:
+      - 8000
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./static_volume:/app/staticfiles
+      - ./media_volume:/app/media
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  media_volume:

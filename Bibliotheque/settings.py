@@ -28,7 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config.get("DJANGO", "SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config.get("DJANGO", "DEBUG")
+# DEBUG = config.get("DJANGO", "DEBUG")
+DEBUG = False
 
 ALLOWED_HOSTS = config.get("DJANGO", "ALLOWED_HOSTS").split(",")
 
@@ -146,7 +147,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = "/images/"
+MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
