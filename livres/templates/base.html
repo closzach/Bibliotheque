@@ -8,6 +8,9 @@
         <title>
             {% block title %}Bibliothèque{% endblock %}
         </title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
         {% block metas %}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Votre bibliothèque personnelle pour gérer et découvrir des livres">
@@ -15,8 +18,6 @@
         {% endblock %}
         
         <link rel="icon" href="{% static 'icons/book.svg' %}" type="image/svg+xml">
-        
-        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
         
         <style>
             :root {
@@ -405,8 +406,6 @@
                 {% endblock %}
             </section>
         </main>
-        
-        <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
         
         <script>
             document.addEventListener('DOMContentLoaded', function() {
