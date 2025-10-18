@@ -4,3 +4,4 @@ node_modules
 migrations
 venv
 config.ini
+staticfiles
