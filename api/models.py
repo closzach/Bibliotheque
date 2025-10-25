@@ -133,7 +133,7 @@ class Lecture(models.Model):
     commentaire = models.TextField(null=True, blank=True)
 
     livre = models.ForeignKey(Livre, on_delete=models.CASCADE)
-    lecteur = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
+    lecteur = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
