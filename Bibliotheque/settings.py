@@ -29,7 +29,7 @@ SECRET_KEY = config.get("DJANGO", "SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = config.get("DJANGO", "DEBUG")
-DEBUG = False
+DEBUG = config.get("DJANGO", "DEBUG")
 
 ALLOWED_HOSTS = config.get("DJANGO", "ALLOWED_HOSTS").split(",")
 
