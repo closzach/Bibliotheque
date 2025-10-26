@@ -130,8 +130,6 @@
             <p><strong>Édition :</strong> {{ livre.edition }}</p>
             {% endif %}
             <p><strong>ISBN :</strong> {{ livre.isbn }}</p>
-
-            <hr>
             <strong>Synopsis :</strong>
             {% if livre.synopsis %}
             <p>{{ livre.synopsis }}</p>
@@ -140,7 +138,6 @@
             {% endif %}
 
             {% if auteurs %}
-            <hr>
             <strong>Auteur(s) :</strong>
             <ul class="list-unstyled">
                 {% for auteur in auteurs %}
@@ -150,7 +147,6 @@
             {% endif %}
 
             {% if tags %}
-            <hr>
             <strong>Tags :</strong>
             <div class="d-flex flex-wrap">
                 {% for tag in tags %}
