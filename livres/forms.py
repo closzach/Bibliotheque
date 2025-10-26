@@ -371,3 +371,15 @@ class NoteLectureForm(forms.ModelForm):
                 }
             )
         }
+
+class CommentaireLectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['commentaire']
+        widgets = {
+            'commentaire': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        }

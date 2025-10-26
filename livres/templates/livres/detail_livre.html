@@ -111,13 +111,16 @@
                     <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
                 </form>
             </div>
-            <hr>
-            <p><strong>Commentaire :</strong></p>
-            {% if lecture.commentaire %}
-            <p>{{ lecture.commentaire }}</p>
-            {% else %}
-            <p class="text-muted">Vous n'avez pas encore commenté.</p>
-            {% endif %}
+            <div class="mb-3">
+                <form method="POST" action="{% url 'livres:modifier_commentaire_lecture' lecture.id %}" class="d-flex gap-2">
+                    {% csrf_token %}
+                    <strong>Commentaire :</strong>
+                    <div style="width: 300px;">
+                        {{ commentaire_lecture_form.commentaire }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
+                </form>
+            </div>
             <hr>
             {% endif %}
 
