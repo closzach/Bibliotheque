@@ -359,3 +359,15 @@ class DateFinLectureForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk and self.instance.date_fin:
             self.initial['date_fin'] = self.instance.date_fin.strftime('%Y-%m-%d')
+
+class NoteLectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['note']
+        widgets = {
+            'note': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        }
