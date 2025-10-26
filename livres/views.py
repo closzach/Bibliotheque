@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
-from .forms import LivreForm, AuteurForm, TagForm, SearchForm, SearchLivreForm, SearchLectureForm, LectureForm, MarquePagesForm, UserForm, UserUpdateForm, CustomPasswordChangeForm, StatutLectureForm
+from .forms import LivreForm, AuteurForm, TagForm, SearchForm, SearchLivreForm, SearchLectureForm, LectureForm, MarquePagesForm, UserForm, UserUpdateForm, CustomPasswordChangeForm, StatutLectureForm, DateDebutLectureForm, DateFinLectureForm, NoteLectureForm, CommentaireLectureForm
 from api.models import Livre, Auteur, Tag, Lecture, User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import update_session_auth_hash
@@ -173,17 +173,23 @@ def detail_livre(request, id):
     bouton_ajouter = True
     lecture = None
     souhait = False
-    lecture_range = None
     marque_pages_form = None
     statut_lecture_form = None
+    date_debut_lecture_form = None
+    date_fin_lecture_form = None
+    note_lecture_form = None
+    commentaire_lecture_form = None
     pages_restantes = None
 
     if request.user.is_authenticated:
         if len(Lecture.objects.filter(lecteur=request.user, livre=livre))!=0:
             lecture = Lecture.objects.filter(lecteur=request.user, livre=livre).first()
-            lecture_range = range(1, 6)
             marque_pages_form = MarquePagesForm(instance=lecture)
             statut_lecture_form = StatutLectureForm(instance=lecture)
+            date_debut_lecture_form = DateDebutLectureForm(instance=lecture)
+            date_fin_lecture_form = DateFinLectureForm(instance=lecture)
+            note_lecture_form = NoteLectureForm(instance=lecture)
+            commentaire_lecture_form = CommentaireLectureForm(instance=lecture)
             pages_restantes = None
             if lecture.marque_pages:
                 pages_restantes = lecture.livre.nombre_pages - lecture.marque_pages
@@ -203,9 +209,12 @@ def detail_livre(request, id):
         'lecture': lecture, 
         'souhait': souhait, 
         'moyenne': moyenne,
-        'lecture_range': lecture_range,
         'marque_pages_form': marque_pages_form,
         'statut_lecture_form': statut_lecture_form,
+        'date_debut_lecture_form': date_debut_lecture_form,
+        'date_fin_lecture_form': date_fin_lecture_form,
+        'note_lecture_form': note_lecture_form,
+        'commentaire_lecture_form': commentaire_lecture_form,
         'pages_restantes': pages_restantes
     })
 
@@ -424,7 +433,7 @@ def modifier_statut_lecture(request, id):
     lecture = get_object_or_404(Lecture, id=id)
 
     if lecture.lecteur != request.user:
-        raise PermissionDenied(f"Cette lecture n'appartien pas à {request.user}.")
+        raise PermissionDenied(f"Cette lecture n'appartient pas à {request.user}.")
     
     if request.method == 'POST':
         lecture_form = StatutLectureForm(request.POST, instance=lecture)
@@ -433,6 +442,74 @@ def modifier_statut_lecture(request, id):
             messages.success(request, "Statut de lecture mis à jour avec succès !")
         else:
             messages.error(request, "Erreur lors de la mise à jour du statut de lecture.")
+
+    return redirect('livres:detail_livre', id=lecture.livre.id)
+
+@login_required
+def modifier_date_debut_lecture(request, id):
+    lecture = get_object_or_404(Lecture, id=id)
+
+    if lecture.lecteur != request.user:
+        raise PermissionDenied(f"Cette lecture n'appartient pas à {request.user}.")
+    
+    if request.method == 'POST':
+        lecture_form = DateDebutLectureForm(request.POST, instance=lecture)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            messages.success(request, "Date de début de lecture mise à jour avec succès !")
+        else:
+            messages.error(request, "Erreur lors de la mise à jour de la date de début de lecture.")
+
+    return redirect('livres:detail_livre', id=lecture.livre.id)
+
+@login_required
+def modifier_date_fin_lecture(request, id):
+    lecture = get_object_or_404(Lecture, id=id)
+
+    if lecture.lecteur != request.user:
+        raise PermissionDenied(f"Cette lecture n'appartient pas à {request.user}.")
+    
+    if request.method == 'POST':
+        lecture_form = DateFinLectureForm(request.POST, instance=lecture)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            messages.success(request, "Date de fin de lecture mise à jour avec succès !")
+        else:
+            messages.error(request, "Erreur lors de la mise à jour de la date de fin de lecture.")
+
+    return redirect('livres:detail_livre', id=lecture.livre.id)
+
+@login_required
+def modifier_note_lecture(request, id):
+    lecture = get_object_or_404(Lecture, id=id)
+
+    if lecture.lecteur != request.user:
+        raise PermissionDenied(f"Cette lecture n'appartient pas à {request.user}.")
+    
+    if request.method == 'POST':
+        lecture_form = NoteLectureForm(request.POST, instance=lecture)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            messages.success(request, "Note de la lecture mise à jour avec succès !")
+        else:
+            messages.error(request, "Erreur lors de la mise à jour de la note de la lecture.")
+
+    return redirect('livres:detail_livre', id=lecture.livre.id)
+
+@login_required
+def modifier_commentaire_lecture(request, id):
+    lecture = get_object_or_404(Lecture, id=id)
+
+    if lecture.lecteur != request.user:
+        raise PermissionDenied(f"Cette lecture n'appartient pas à {request.user}.")
+    
+    if request.method == 'POST':
+        lecture_form = CommentaireLectureForm(request.POST, instance=lecture)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            messages.success(request, "Commentaire de la lecture mise à jour avec succès !")
+        else:
+            messages.error(request, "Erreur lors de la mise à jour du commentaire de la lecture.")
 
     return redirect('livres:detail_livre', id=lecture.livre.id)
 
