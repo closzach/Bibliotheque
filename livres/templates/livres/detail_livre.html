@@ -80,16 +80,26 @@
                 </form>
             </div>
             {% endif %}
-            {% if lecture.date_debut %}
-            <p>
-                <strong>Date de début de lecture :</strong> {{ lecture.date_debut|date:"d/m/Y" }}
-            </p>
-            {% endif %}
-            {% if lecture.date_fin %}
-            <p>
-                <strong>Date de fin de lecture :</strong> {{ lecture.date_fin|date:"d/m/Y" }}
-            </p>
-            {% endif %}
+            <div class="mb-3">
+                <form method="POST" action="{% url 'livres:modifier_date_debut_lecture' lecture.id %}" class="d-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <strong>Date de début :</strong>
+                    <div style="width: 150px;">
+                        {{ date_debut_lecture_form.date_debut }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
+                </form>
+            </div>
+            <div class="mb-3">
+                <form method="POST" action="{% url 'livres:modifier_date_fin_lecture' lecture.id %}" class="d-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <strong>Date de fin :</strong>
+                    <div style="width: 150px;">
+                        {{ date_fin_lecture_form.date_fin }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Mettre à jour</button>
+                </form>
+            </div>
             <hr>
             <p><strong>Note :</strong></p>
             {% if lecture.note %}

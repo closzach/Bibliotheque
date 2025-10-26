@@ -323,3 +323,39 @@ class StatutLectureForm(forms.ModelForm):
                 }
             )
         }
+
+class DateDebutLectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['date_debut']
+        widgets = {
+            'date_debut': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'date'
+                }
+            )
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and self.instance.date_debut:
+            self.initial['date_debut'] = self.instance.date_debut.strftime('%Y-%m-%d')
+
+class DateFinLectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['date_fin']
+        widgets = {
+            'date_fin': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'date'
+                }
+            )
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and self.instance.date_fin:
+            self.initial['date_fin'] = self.instance.date_fin.strftime('%Y-%m-%d')
